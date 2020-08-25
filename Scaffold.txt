@@ -1,0 +1,5 @@
+﻿
+Scaffold-DbContext "Data Source=(localdb)\MSSQLLocalDB;Integrated Security=SSPI;DATABASE=TEST" Microsoft.EntityFrameworkCore.SqlServer -o DbModel/test -f
+
+
+after run the script, delete OnConfiguring method in class acoplannerContext
