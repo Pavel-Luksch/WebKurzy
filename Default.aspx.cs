@@ -6,6 +6,7 @@ using System.IO;
 using System.Data;
 using System.Globalization;
 using System.Web.UI.WebControls;
+using System.Web.Mvc;
 using WebKurzyApplication3;
 using System.Text;
 using System.Web.Hosting;
@@ -17,7 +18,7 @@ using System.Web.Hosting;
 
 
 
-public partial class _Default : System.Web.UI.Page
+public partial class _Default : ViewPage
 {
     NumberFormatInfo nfi = new NumberFormatInfo();     
     System.Data.DataTable dt1,dt2;
@@ -39,7 +40,8 @@ public partial class _Default : System.Web.UI.Page
     public void Page_Load(object sender, EventArgs e)
     {
         nfi.NumberDecimalSeparator = ".";        
-        string constr = Global.connstr;
+        string constr = Global.connstr;        
+
         //String spojeni = ConfigurationSettings.AppSettings[0]; //mozne nastaveni ve web.config
         dt1 = new DataTable();
         dt2 = new DataTable();
@@ -56,12 +58,31 @@ public partial class _Default : System.Web.UI.Page
         dtv2 = new DataView(dt2);
 
 
-
-        Button1 = FindControl("BUTTON1") as Button;
-        Button1.Click += Button1_Click;
+        Button but = new Button();
+        but.Text = "Pridat radek";
+        but.ID = "BUTTON1";
+        //Button1 = FindControl("BUTTON1") as Button;
+        //Button1.Click += Button1_Click;
+        but.Click += Button1_Click;
         
 
-        DataGrid1 = FindControl("DataGrid11") as DataGrid;              
+        EditCommandColumn edcol = new EditCommandColumn();
+        edcol.EditText = "Oprava";
+        edcol.CancelText = "Unik";
+        edcol.UpdateText = "Ulozeni";
+        edcol.ItemStyle.Wrap = false;
+        edcol.HeaderStyle.Wrap = false;
+        ButtonColumn butcol = new ButtonColumn();
+        butcol.ButtonType = ButtonColumnType.LinkButton;
+        butcol.Text = "Smazat";
+        butcol.CommandName = "Delete";
+        
+
+        DataGrid1 = FindControl("DataGrid11") as DataGrid;
+        DataGrid1.Columns.Add(edcol);
+        DataGrid1.Columns.Add(butcol);
+        Form.Controls.Add(but);
+
         DataGrid1.EditCommand +=
              new DataGridCommandEventHandler(this.ItemsGrid_Edit);
         DataGrid1.CancelCommand +=
@@ -75,9 +96,12 @@ public partial class _Default : System.Web.UI.Page
         
         DataGrid1.DataSource = dt1;
         DataGrid1.DataBind();
-        
-        
-        DataGrid2 = FindControl("DataGrid22") as DataGrid;
+
+
+        //DataGrid2 = FindControl("DataGrid22") as DataGrid;
+        DataGrid2 = new DataGrid();
+        DataGrid2.Style.Value = "position:absolute;top:10%;left:50%";
+        DataGrid1.Parent.Controls.Add(DataGrid2);
         DataGrid2.DataSource = dt2;
         DataGrid2.DataBind();
 

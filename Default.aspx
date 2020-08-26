@@ -57,44 +57,12 @@
 <body onload="setedit()">
     <form id="form1" runat="server">
     <h2>Testovaci uloha</h2>
-    <div style="position:absolute">
-    <asp:DataGrid ID="DataGrid11" 
-         OnEditCommand="ItemsGrid_Edit"
-         OnCancelCommand="ItemsGrid_Cancel"
-         OnUpdateCommand="ItemsGrid_Update"
-         OnItemCommand="ItemsGrid_Command"         
-         runat ="server">
-
-         <Columns>
-
-            <asp:EditCommandColumn
-                 EditText="Oprava"
-                 CancelText="Unik"
-                 UpdateText="Ulozeni" >                 
-
-               <ItemStyle Wrap="False">
-               </ItemStyle>
-
-               <HeaderStyle Wrap="False">
-               </HeaderStyle>
-
-            </asp:EditCommandColumn>
-
-            <asp:ButtonColumn                  
-                 ButtonType="LinkButton" 
-                 Text="Smazat" 
-                 CommandName="Delete"/>               
- 
-         </Columns>
- 
-      </asp:DataGrid>
-        <asp:Button ID="BUTTON1" TEXT="Pridat radek"  runat ="server" />
-        
+    <div style="position:absolute;top:20%;">
+    <asp:DataGrid ID="DataGrid11" runat ="server"/>                       
     </div>
     
     <div style="position:absolute;top:10%;left:50%">
-    <asp:DataGrid ID="DataGrid22"          
-         runat ="server" />
+    
     </div>
     </form>
 </body>
